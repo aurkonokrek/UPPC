@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import AppointmentForm from "@/components/AppointmentForm";
+import TextReveal from "@/components/TextReveal";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const AnimatedSection = ({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) => {
@@ -29,7 +30,7 @@ const Contact = () => (
             { icon: MapPin, title: "Address", detail: "Mirpur, Dhaka Division, Bangladesh" },
           ].map((c, i) => (
             <AnimatedSection key={c.title} delay={i * 100}>
-              <div className="bg-card rounded-xl p-8 text-center shadow-lg hover:shadow-xl transition-shadow">
+              <div className="bg-card rounded-xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-accent flex items-center justify-center">
                   <c.icon className="h-6 w-6 text-primary" />
                 </div>
@@ -42,11 +43,11 @@ const Contact = () => (
       </div>
     </section>
 
-    {/* Map Placeholder */}
+    {/* Map */}
     <section className="py-8">
       <div className="container mx-auto px-4 lg:px-8">
         <AnimatedSection>
-          <div className="bg-muted rounded-xl h-[300px] flex items-center justify-center">
+          <div className="bg-muted rounded-xl h-[300px] flex items-center justify-center overflow-hidden">
             <div className="text-center">
               <MapPin className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
               <p className="text-muted-foreground text-sm">Map will be displayed here</p>
