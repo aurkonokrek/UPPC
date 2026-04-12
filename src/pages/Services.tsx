@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import ServiceCard from "@/components/ServiceCard";
 import AppointmentForm from "@/components/AppointmentForm";
+import TextReveal from "@/components/TextReveal";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 import servicePhysio from "@/assets/service-physio.jpg";
@@ -28,6 +29,8 @@ const testimonials = [
   { text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.", name: "Name Surname", role: "Position, Company name" },
   { text: "The team at UPPC provided exceptional care during my recovery. Their expertise and compassion made all the difference in my rehabilitation journey.", name: "Sarah Johnson", role: "Patient" },
   { text: "Outstanding physiotherapy services. The personalized approach and professional staff helped me recover much faster than expected.", name: "Ahmed Rahman", role: "Patient" },
+  { text: "I highly recommend UPPC for anyone dealing with chronic pain. The therapists are knowledgeable and truly care about their patients.", name: "Fatima Akhter", role: "Patient" },
+  { text: "After my stroke, the rehabilitation team at UPPC helped me regain my independence. Forever grateful for their dedication.", name: "Karim Hossain", role: "Patient" },
 ];
 
 const services = [
@@ -52,7 +55,7 @@ const Services = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection className="text-center mb-12">
             <p className="text-sm font-medium text-primary uppercase tracking-wider mb-2">WHAT WE OFFER</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">More Freely, Live Fully With Our Care</h2>
+            <TextReveal text="More Freely, Live Fully With Our Care" as="h2" className="text-3xl md:text-4xl font-bold text-foreground mb-4" />
             <p className="text-muted-foreground max-w-xl mx-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           </AnimatedSection>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -72,7 +75,7 @@ const Services = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection>
             <div className="max-w-3xl mx-auto text-center">
-              <p className="text-lg md:text-xl font-medium text-foreground italic leading-relaxed mb-8">
+              <p className="text-lg md:text-xl font-medium text-foreground italic leading-relaxed mb-8 transition-opacity duration-500">
                 "{testimonials[currentTestimonial].text}"
               </p>
               <div className="w-12 h-12 rounded-full bg-accent mx-auto mb-3 flex items-center justify-center">
@@ -89,7 +92,7 @@ const Services = () => {
                 </button>
                 <div className="flex gap-2">
                   {testimonials.map((_, i) => (
-                    <button key={i} onClick={() => setCurrentTestimonial(i)} className={`w-2.5 h-2.5 rounded-full transition-colors ${i === currentTestimonial ? "bg-primary" : "bg-border"}`} />
+                    <button key={i} onClick={() => setCurrentTestimonial(i)} className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === currentTestimonial ? "bg-primary w-6" : "bg-border"}`} />
                   ))}
                 </div>
                 <button
@@ -109,7 +112,7 @@ const Services = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection className="text-center mb-12">
             <p className="text-sm font-medium text-primary uppercase tracking-wider mb-2">HOW IT WORKS</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">A Patient-Centered Approach For Effective, Long-Lasting Results</h2>
+            <TextReveal text="A Patient-Centered Approach For Effective, Long-Lasting Results" as="h2" className="text-3xl md:text-4xl font-bold text-foreground" />
           </AnimatedSection>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
@@ -119,7 +122,7 @@ const Services = () => {
               { icon: Hand, title: "Hands-On Therapy" },
             ].map((step, i) => (
               <AnimatedSection key={step.title} delay={i * 150}>
-                <div className="bg-card p-6 rounded-xl text-center hover:shadow-lg transition-shadow">
+                <div className="bg-card p-6 rounded-xl text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                   <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-accent flex items-center justify-center">
                     <step.icon className="h-7 w-7 text-primary" />
                   </div>
