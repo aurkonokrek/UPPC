@@ -1,11 +1,14 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Phone, Clock, MapPin, HeartPulse, Users, Stethoscope, ArrowRight, CalendarCheck, UserCheck, ClipboardList, Hand } from "lucide-react";
+import { Phone, Clock, MapPin, HeartPulse, ArrowRight, CalendarCheck, UserCheck, ClipboardList, Hand } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useParallax } from "@/hooks/useParallax";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ServiceCard from "@/components/ServiceCard";
 import AppointmentForm from "@/components/AppointmentForm";
+import HeroSlider from "@/components/HeroSlider";
+import TextReveal from "@/components/TextReveal";
 
 import heroImg from "@/assets/hero-physio.jpg";
 import aboutImg from "@/assets/about-physio.jpg";
@@ -62,8 +65,11 @@ const services = [
   { image: serviceSports, title: "Sports Injury Management", description: "Targeted rehabilitation for sports-related injuries and performance recovery." },
 ];
 
+const heroImages = [heroImg, aboutImg, servicePhysio];
+
 const Index = () => {
   const [heroLoaded, setHeroLoaded] = useState(false);
+  const parallaxOffset = useParallax(0.15);
 
   useEffect(() => {
     const t = setTimeout(() => setHeroLoaded(true), 100);
@@ -79,31 +85,28 @@ const Index = () => {
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
-              <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6 transition-all duration-1000 ${heroLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
-                Expert Care For Pain Relief And Enhanced Function
-              </h1>
-              <p className={`text-primary-foreground/80 text-lg mb-8 max-w-lg leading-relaxed transition-all duration-1000 delay-200 ${heroLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
+              <TextReveal
+                text="Expert Care For Pain Relief And Enhanced Function"
+                as="h1"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6"
+              />
+              <p className={`text-primary-foreground/80 text-lg mb-8 max-w-lg leading-relaxed transition-all duration-1000 delay-500 ${heroLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
                 At Unique Pain & Paralysis Centre, we specialize in providing personalized rehabilitation services to help you recover and thrive.
               </p>
-              <div className={`flex flex-wrap gap-6 mb-10 transition-all duration-1000 delay-300 ${heroLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-primary-foreground">12+</div>
-                  <div className="text-xs text-primary-foreground/60">Years Experience</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-primary-foreground">3,500+</div>
-                  <div className="text-xs text-primary-foreground/60">Patients treated</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-primary-foreground">3</div>
-                  <div className="text-xs text-primary-foreground/60">Expert Doctors</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-primary-foreground">2</div>
-                  <div className="text-xs text-primary-foreground/60">Clinic Locations</div>
-                </div>
+              <div className={`flex flex-wrap gap-6 mb-10 transition-all duration-1000 delay-700 ${heroLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}>
+                {[
+                  { n: "12+", l: "Years Experience" },
+                  { n: "3,500+", l: "Patients treated" },
+                  { n: "3", l: "Expert Doctors" },
+                  { n: "2", l: "Clinic Locations" },
+                ].map((s) => (
+                  <div key={s.l} className="text-center">
+                    <div className="text-3xl font-bold text-primary-foreground">{s.n}</div>
+                    <div className="text-xs text-primary-foreground/60">{s.l}</div>
+                  </div>
+                ))}
               </div>
-              <div className={`flex flex-wrap gap-4 transition-all duration-1000 delay-500 ${heroLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}>
+              <div className={`flex flex-wrap gap-4 transition-all duration-1000 delay-900 ${heroLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}>
                 <Link to="/contact" className="px-8 py-3 bg-primary-foreground text-primary font-semibold rounded-full hover:shadow-lg transition-all duration-300 text-sm">
                   Book Appointment
                 </Link>
@@ -113,7 +116,7 @@ const Index = () => {
               </div>
             </div>
             <div className={`hidden lg:block transition-all duration-1000 delay-300 ${heroLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>
-              <img src={heroImg} alt="Physiotherapy session" className="rounded-2xl shadow-2xl w-full max-w-lg ml-auto object-cover h-[480px]" width={1920} height={1080} />
+              <HeroSlider images={heroImages} className="rounded-2xl shadow-2xl w-full max-w-lg ml-auto h-[480px]" />
             </div>
           </div>
         </div>
@@ -149,8 +152,14 @@ const Index = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection>
-              <div className="relative">
-                <img src={aboutImg} alt="About UPPC" className="rounded-2xl w-full object-cover h-[400px]" loading="lazy" />
+              <div className="relative overflow-hidden rounded-2xl">
+                <img
+                  src={aboutImg}
+                  alt="About UPPC"
+                  className="w-full object-cover h-[400px]"
+                  loading="lazy"
+                  style={{ transform: `translateY(${parallaxOffset * 0.3}px)` }}
+                />
                 <div className="absolute bottom-4 left-4 bg-primary text-primary-foreground px-4 py-3 rounded-xl">
                   <div className="text-2xl font-bold">12+</div>
                   <div className="text-xs">Years Experience</div>
@@ -159,9 +168,11 @@ const Index = () => {
             </AnimatedSection>
             <AnimatedSection delay={200}>
               <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">ABOUT US</p>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 leading-tight">
-                Dedicated To Your Health, Committed To Your Recovery
-              </h2>
+              <TextReveal
+                text="Dedicated To Your Health, Committed To Your Recovery"
+                as="h2"
+                className="text-3xl md:text-4xl font-bold text-foreground mb-4 leading-tight"
+              />
               <p className="text-muted-foreground leading-relaxed mb-6">
                 At Unique Pain & Paralysis Centre, we are dedicated to providing personalized and rehabilitation services to address a variety of conditions and needs.
               </p>
@@ -194,7 +205,11 @@ const Index = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Dedicated To Your Recovery</h2>
+              <TextReveal
+                text="Dedicated To Your Recovery"
+                as="h2"
+                className="text-3xl md:text-4xl font-bold text-foreground mb-4"
+              />
               <p className="text-muted-foreground leading-relaxed mb-6">
                 Our team is the heart and soul of our organization. Comprised of dedicated professionals from diverse backgrounds with a shared vision.
               </p>
@@ -204,12 +219,18 @@ const Index = () => {
             </AnimatedSection>
             <AnimatedSection delay={200}>
               <div className="grid grid-cols-3 gap-4">
-                {[doctor1, doctor2, doctor3].map((doc, i) => (
-                  <div key={i} className="rounded-xl overflow-hidden shadow-md">
-                    <img src={doc} alt={`Doctor ${i + 1}`} className="w-full h-48 object-cover" loading="lazy" />
+                {[
+                  { img: doctor1, name: "Asst. prof. Dr. Md. Faruqul Islam", role: "Consultant Physiotherapist" },
+                  { img: doctor2, name: "Dr. Mokhlesur Rahman Siddiqui", role: "Consultant Physiotherapist" },
+                  { img: doctor3, name: "Dr. AKM Minarul Tawhid", role: "Consultant Physiotherapist" },
+                ].map((d, i) => (
+                  <div key={i} className="rounded-xl overflow-hidden shadow-md group">
+                    <div className="overflow-hidden h-48">
+                      <img src={d.img} alt={d.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                    </div>
                     <div className="p-3 bg-card text-center">
-                      <p className="text-xs font-semibold text-foreground">{["Dr. Md. Faruqul Islam", "Dr. Mokhlesur Rahman Siddiqui", "Dr. AKM Minarul Tawhid"][i]}</p>
-                      <p className="text-[10px] text-muted-foreground">{["Consultant Physiotherapist", "Consultant Physiotherapist", "Consultant Physiotherapist"][i]}</p>
+                      <p className="text-xs font-semibold text-foreground">{d.name}</p>
+                      <p className="text-[10px] text-muted-foreground">{d.role}</p>
                     </div>
                   </div>
                 ))}
@@ -223,7 +244,11 @@ const Index = () => {
       <section className="py-20 md:py-28">
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Our Comprehensive Rehabilitation Services</h2>
+            <TextReveal
+              text="Our Comprehensive Rehabilitation Services"
+              as="h2"
+              className="text-3xl md:text-4xl font-bold text-foreground mb-4"
+            />
             <p className="text-muted-foreground max-w-2xl mx-auto">
               At Unique Pain & Paralysis Centre, we specialize in providing comprehensive rehabilitation services to address a wide variety of conditions and needs.
             </p>
@@ -243,7 +268,11 @@ const Index = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection className="text-center mb-12">
             <p className="text-sm font-medium text-primary uppercase tracking-wider mb-2">HOW IT WORKS</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">A Patient-Centered Approach For Effective, Long-Lasting Results</h2>
+            <TextReveal
+              text="A Patient-Centered Approach For Effective, Long-Lasting Results"
+              as="h2"
+              className="text-3xl md:text-4xl font-bold text-foreground"
+            />
           </AnimatedSection>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
@@ -253,7 +282,7 @@ const Index = () => {
               { icon: Hand, title: "Hands-On Therapy", desc: "Begin your personalized treatment plan." },
             ].map((step, i) => (
               <AnimatedSection key={step.title} delay={i * 150}>
-                <div className="bg-card p-6 rounded-xl text-center hover:shadow-lg transition-shadow duration-300">
+                <div className="bg-card p-6 rounded-xl text-center hover:shadow-lg transition-shadow duration-300 hover:-translate-y-1">
                   <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-accent flex items-center justify-center">
                     <step.icon className="h-7 w-7 text-primary" />
                   </div>
@@ -276,7 +305,7 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[servicePhysio, servicePain, serviceStroke].map((img, i) => (
               <AnimatedSection key={i} delay={i * 100}>
-                <div className="bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 group">
+                <div className="bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 group hover:-translate-y-1">
                   <div className="overflow-hidden h-48">
                     <img src={img} alt="Blog" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                   </div>
@@ -298,7 +327,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Products placeholder */}
+      {/* Products */}
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection className="text-center mb-8">
@@ -307,7 +336,7 @@ const Index = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[1,2,3,4].map(i => (
               <AnimatedSection key={i} delay={i * 100}>
-                <div className="bg-card rounded-xl p-6 text-center shadow-sm hover:shadow-md transition-shadow">
+                <div className="bg-card rounded-xl p-6 text-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
                   <div className="w-16 h-16 mx-auto mb-3 bg-accent rounded-lg flex items-center justify-center">
                     <HeartPulse className="h-8 w-8 text-primary" />
                   </div>
@@ -324,9 +353,11 @@ const Index = () => {
       <section className="py-20">
         <div className="container mx-auto px-4 lg:px-8">
           <AnimatedSection className="max-w-2xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 leading-tight">
-              We not only help you feel better. We ensure your well-being with UPPC
-            </h2>
+            <TextReveal
+              text="We not only help you feel better. We ensure your well-being with UPPC"
+              as="h2"
+              className="text-3xl md:text-4xl font-bold text-foreground mb-4 leading-tight"
+            />
             <Link to="/contact" className="inline-flex items-center px-8 py-3 bg-primary text-primary-foreground font-semibold rounded-full hover:bg-primary-dark transition-colors text-sm">
               Learn More
             </Link>
@@ -334,13 +365,19 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="relative py-20 bg-hero-gradient overflow-hidden">
+      {/* Final CTA with Parallax */}
+      <section className="relative py-20 overflow-hidden">
+        <div
+          className="absolute inset-0 bg-hero-gradient"
+          style={{ transform: `translateY(${parallaxOffset * -0.1}px)` }}
+        />
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <AnimatedSection className="max-w-xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4 leading-tight">
-              Ready to take the first step toward a pain-free life?
-            </h2>
+            <TextReveal
+              text="Ready to take the first step toward a pain-free life?"
+              as="h2"
+              className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4 leading-tight"
+            />
             <p className="text-primary-foreground/80 mb-6 leading-relaxed">
               Our team of experienced physiotherapists is here to help you recover, rebuild, and reclaim your quality of life.
             </p>
