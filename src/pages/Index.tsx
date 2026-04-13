@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Phone, Clock, MapPin, HeartPulse, ArrowRight, CalendarCheck, UserCheck, ClipboardList, Hand } from "lucide-react";
+import { Phone, Clock, MapPin, HeartPulse, ArrowRight, CalendarCheck, UserCheck, ClipboardList, Hand, ChevronLeft, ChevronRight, BedDouble, Cross, Briefcase } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useParallax } from "@/hooks/useParallax";
 import Navbar from "@/components/Navbar";
@@ -21,6 +21,7 @@ import serviceSports from "@/assets/service-sports.jpg";
 import doctor1 from "@/assets/doctor-1.jpg";
 import doctor2 from "@/assets/doctor-2.jpg";
 import doctor3 from "@/assets/doctor-3.jpg";
+import ctaImg from "@/assets/cta-physio.jpg";
 
 const Counter = ({ end, suffix = "" }: { end: number; suffix?: string }) => {
   const [count, setCount] = useState(0);
