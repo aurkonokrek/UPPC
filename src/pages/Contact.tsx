@@ -47,12 +47,14 @@ const Contact = () => (
     <section className="py-8">
       <div className="container mx-auto px-4 lg:px-8">
         <AnimatedSection>
-          <div className="bg-muted rounded-xl h-[300px] flex items-center justify-center overflow-hidden">
-            <div className="text-center">
-              <MapPin className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
-              <p className="text-muted-foreground text-sm">Map will be displayed here</p>
-            </div>
-          </div>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.0091382162414!2d90.36307397419198!3d23.818274086169346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c12f620e47bd%3A0x807fb51c8e73e91a!2sUNIQUE%20PAIN%20AND%20PARALYSIS%20CENTRE!5e0!3m2!1sen!2sbd!4v1776113859990!5m2!1sen!2sbd"
+            className="w-full h-[400px] rounded-xl shadow-md border-0"
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Unique Pain and Paralysis Centre Location"
+          />
         </AnimatedSection>
       </div>
     </section>
