@@ -10,6 +10,7 @@ import ServiceDetail from "./pages/ServiceDetail.tsx";
 import ProductDetail from "./pages/ProductDetail.tsx";
 import Products from "./pages/Products.tsx";
 import Blog from "./pages/Blog.tsx";
+import BlogDetail from "./pages/BlogDetail.tsx";
 import Contact from "./pages/Contact.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/products" element={<Products />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogDetail />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
