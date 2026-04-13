@@ -82,19 +82,19 @@ const Index = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-hero-gradient pt-20">
+      <section className="relative flex items-center overflow-hidden bg-hero-gradient pt-24 pb-16 md:pt-28 md:pb-20 lg:min-h-[90vh] lg:py-0">
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
+            <div className="w-full lg:w-1/2">
               <TextReveal
                 text="Expert Care For Pain Relief And Enhanced Function"
                 as="h1"
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-[1.2] mb-8"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-[1.2] mb-6 md:mb-8"
               />
-              <p className={`text-primary-foreground/80 text-lg mb-10 max-w-lg leading-relaxed transition-all duration-1000 delay-500 ${heroLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
+              <p className={`text-primary-foreground/80 text-base md:text-lg mb-8 md:mb-10 max-w-lg leading-relaxed transition-all duration-1000 delay-500 ${heroLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
                 At Unique Pain & Paralysis Centre, we specialize in providing personalized rehabilitation services to help you recover and thrive.
               </p>
-              <div className={`flex gap-10 mb-12 transition-all duration-1000 delay-700 ${heroLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}>
+              <div className={`grid grid-cols-2 sm:flex sm:gap-10 gap-4 mb-8 md:mb-12 transition-all duration-1000 delay-700 ${heroLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}>
                 {[
                   { n: "12+", l: "Years Experience" },
                   { n: "3,500+", l: "Patients treated" },
@@ -102,22 +102,22 @@ const Index = () => {
                   { n: "2", l: "Clinic Locations" },
                 ].map((s) => (
                   <div key={s.l} className="text-left">
-                    <div className="text-3xl font-bold text-primary-foreground">{s.n}</div>
+                    <div className="text-2xl sm:text-3xl font-bold text-primary-foreground">{s.n}</div>
                     <div className="text-xs text-primary-foreground/60 mt-1">{s.l}</div>
                   </div>
                 ))}
               </div>
               <div className={`flex flex-wrap gap-4 transition-all duration-1000 delay-900 ${heroLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}>
-                <Link to="/contact" className="px-8 py-3 bg-primary-foreground text-primary font-semibold rounded-full hover:shadow-lg transition-all duration-300 text-sm">
+                <Link to="/contact" className="px-6 sm:px-8 py-3 bg-primary-foreground text-primary font-semibold rounded-full hover:shadow-lg transition-all duration-300 text-sm">
                   Book Appointment
                 </Link>
-                <Link to="/services" className="px-8 py-3 border-2 border-primary-foreground/40 text-primary-foreground font-semibold rounded-full hover:bg-primary-foreground/10 transition-all duration-300 text-sm">
+                <Link to="/services" className="px-6 sm:px-8 py-3 border-2 border-primary-foreground/40 text-primary-foreground font-semibold rounded-full hover:bg-primary-foreground/10 transition-all duration-300 text-sm">
                   Learn More
                 </Link>
               </div>
             </div>
-            <div className={`hidden lg:block transition-all duration-1000 delay-300 ${heroLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>
-              <HeroSlider images={heroImages} className="rounded-2xl shadow-2xl w-full max-w-lg ml-auto h-[480px]" />
+            <div className={`w-full lg:w-1/2 transition-all duration-1000 delay-300 ${heroLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>
+              <HeroSlider images={heroImages} className="rounded-2xl shadow-2xl w-full h-auto max-h-[480px] object-cover mx-auto lg:ml-auto" />
             </div>
           </div>
         </div>
