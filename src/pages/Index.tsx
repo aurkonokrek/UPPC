@@ -84,26 +84,26 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-hero-gradient pt-20">
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <TextReveal
                 text="Expert Care For Pain Relief And Enhanced Function"
                 as="h1"
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-[1.2] mb-8"
               />
-              <p className={`text-primary-foreground/80 text-lg mb-8 max-w-lg leading-relaxed transition-all duration-1000 delay-500 ${heroLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
+              <p className={`text-primary-foreground/80 text-lg mb-10 max-w-lg leading-relaxed transition-all duration-1000 delay-500 ${heroLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
                 At Unique Pain & Paralysis Centre, we specialize in providing personalized rehabilitation services to help you recover and thrive.
               </p>
-              <div className={`flex flex-wrap gap-6 mb-10 transition-all duration-1000 delay-700 ${heroLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}>
+              <div className={`flex gap-10 mb-12 transition-all duration-1000 delay-700 ${heroLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}>
                 {[
                   { n: "12+", l: "Years Experience" },
                   { n: "3,500+", l: "Patients treated" },
                   { n: "3", l: "Expert Doctors" },
                   { n: "2", l: "Clinic Locations" },
                 ].map((s) => (
-                  <div key={s.l} className="text-center">
+                  <div key={s.l} className="text-left">
                     <div className="text-3xl font-bold text-primary-foreground">{s.n}</div>
-                    <div className="text-xs text-primary-foreground/60">{s.l}</div>
+                    <div className="text-xs text-primary-foreground/60 mt-1">{s.l}</div>
                   </div>
                 ))}
               </div>
@@ -123,27 +123,36 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Info Bar */}
+      {/* Info Bar + Appointment — unified strip */}
       <AnimatedSection>
-        <div className="bg-background shadow-md -mt-6 relative z-20 rounded-xl mx-4 lg:mx-auto max-w-4xl">
-          <div className="flex flex-col md:flex-row items-center justify-center divide-y md:divide-y-0 md:divide-x divide-border">
-            <div className="flex items-center gap-3 px-8 py-5">
-              <Clock className="h-5 w-5 text-primary" />
-              <div>
-                <p className="text-sm font-semibold text-foreground">Opening Hours</p>
-                <p className="text-xs text-muted-foreground">Mon-Sat: 9AM - 8PM</p>
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="bg-background shadow-lg -mt-8 relative z-20 rounded-xl overflow-hidden">
+            <div className="flex flex-col md:flex-row items-stretch">
+              <div className="flex-1 flex items-center gap-4 px-8 py-5 border-b md:border-b-0 md:border-r border-border">
+                <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center flex-shrink-0">
+                  <Clock className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">Opening Hours</p>
+                  <p className="text-xs text-muted-foreground">Mon-Sat: 9AM - 8PM</p>
+                </div>
               </div>
-            </div>
-            <div className="flex items-center gap-3 px-8 py-5">
-              <MapPin className="h-5 w-5 text-primary" />
-              <div>
-                <p className="text-sm font-semibold text-foreground">Our Locations</p>
-                <p className="text-xs text-muted-foreground">Mirpur, Dhaka</p>
+              <div className="flex-1 flex items-center gap-4 px-8 py-5 border-b md:border-b-0 md:border-r border-border">
+                <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center flex-shrink-0">
+                  <MapPin className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">Our Locations</p>
+                  <p className="text-xs text-muted-foreground">Mirpur, Dhaka</p>
+                </div>
               </div>
+              <Link
+                to="/contact"
+                className="flex items-center justify-center px-10 py-5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors whitespace-nowrap"
+              >
+                Make an Appointment
+              </Link>
             </div>
-            <Link to="/contact" className="px-8 py-5 bg-primary text-primary-foreground text-sm font-semibold rounded-b-xl md:rounded-none md:rounded-r-xl hover:bg-primary-dark transition-colors">
-              Make an Appointment
-            </Link>
           </div>
         </div>
       </AnimatedSection>
