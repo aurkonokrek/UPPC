@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Star, Heart, Minus, Plus, Truck, CreditCard, Headphones, RefreshCcw, CheckCircle2, Facebook, Twitter, Linkedin } from "lucide-react";
+import {
+  Star, Heart, Minus, Plus, Truck, CreditCard, Headphones, RefreshCcw,
+  CheckCircle2, Facebook, Twitter, Linkedin, Search, ShoppingCart, User, Phone
+} from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -47,16 +50,32 @@ const ProductDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Promotional Bar */}
+      <div className="bg-primary-dark text-primary-foreground text-xs py-2">
+        <div className="container mx-auto px-4 lg:px-8 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Phone className="h-3 w-3" />
+            <span>Call us: +123-456-789</span>
+          </div>
+          <span className="hidden sm:inline">Sign up and GET 50% OFF for your first order. <Link to="/contact" className="underline font-semibold">Sign up now</Link></span>
+          <div className="flex items-center gap-3">
+            {[Facebook, Twitter, Linkedin].map((Icon, i) => (
+              <a key={i} href="#" className="hover:opacity-80 transition-opacity"><Icon className="h-3.5 w-3.5" /></a>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <Navbar />
 
       {/* Breadcrumb Hero */}
-      <section className="pt-24 pb-6 bg-muted">
+      <section className="pt-24 pb-8 bg-muted">
         <div className="container mx-auto px-4 lg:px-8 text-center">
           <h1 className="text-3xl font-bold text-foreground mb-2">Shop</h1>
           <p className="text-sm text-muted-foreground">
             <Link to="/" className="hover:text-primary transition-colors">Home</Link>
             {" / "}
-            <Link to="/services#products" className="hover:text-primary transition-colors">Plants</Link>
+            <span className="hover:text-primary transition-colors">Plants</span>
             {" / "}
             <span className="text-foreground">Product Details</span>
           </p>
@@ -230,14 +249,14 @@ const ProductDetail = () => {
                 }`}
               >
                 {tab.label}
-                {activeTab === tab.key && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full" />
-                )}
+                <span className={`absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full transition-all duration-300 ${
+                  activeTab === tab.key ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
+                }`} />
               </button>
             ))}
           </div>
 
-          <div className="transition-opacity duration-300">
+          <div className="min-h-[200px]">
             {activeTab === "description" && (
               <div className="max-w-3xl animate-fade-in">
                 <p className="text-muted-foreground leading-[1.8] mb-4">
