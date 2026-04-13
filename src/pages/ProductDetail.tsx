@@ -1,44 +1,25 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams, Navigate } from "react-router-dom";
 import {
   Star, Heart, Minus, Plus, Truck, ShieldCheck, Headphones,
   CheckCircle2, Facebook, Twitter, Linkedin
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import productsData from "@/data/productsData";
 
-import tensUnitImg from "@/assets/product-tens-unit.jpg";
-import resistanceBandsImg from "@/assets/product-resistance-bands.jpg";
-import coldTherapyImg from "@/assets/product-cold-therapy.jpg";
-import orthoPillowImg from "@/assets/product-ortho-pillow.jpg";
-import exerciseBallImg from "@/assets/product-exercise-ball.jpg";
-
-const powerSources = ["Battery", "Rechargeable", "Mains"];
-const channels = ["Dual Channel", "4-Channel"];
-const accentColors = [
+const defaultPowerSources = ["Battery", "Rechargeable", "Mains"];
+const defaultChannels = ["Dual Channel", "4-Channel"];
+const defaultAccentColors = [
   { name: "White", class: "bg-white border border-border" },
   { name: "Silver", class: "bg-gray-300" },
   { name: "Medical Blue", class: "bg-primary" },
 ];
 
-const thumbnails = [tensUnitImg, coldTherapyImg, resistanceBandsImg, orthoPillowImg];
-
-const relatedProducts = [
-  { img: resistanceBandsImg, title: "Resistance Bands Set", rating: 4.6, price: 18, old: 28, badge: "35% off", category: "Rehab Equipment" },
-  { img: coldTherapyImg, title: "Cold Therapy Gel Pack", rating: 4.8, price: 15, old: 22, badge: "30% off", category: "Pain Relief" },
-  { img: orthoPillowImg, title: "Orthopedic Pillow", rating: 4.9, price: 45, old: 60, badge: "25% off", category: "Support" },
-  { img: exerciseBallImg, title: "Exercise Ball", rating: 4.7, price: 30, old: null, badge: null, category: "Rehab Equipment" },
-];
-
-const descriptionBullets = [
-  "Clinically tested TENS technology for effective pain management",
-  "Adjustable intensity levels suitable for various therapy needs",
-  "Compact and portable design for home and clinic use",
-  "Comes with reusable electrode pads and carrying case",
-  "FDA-approved for safe, non-invasive pain relief",
-];
-
 const ProductDetail = () => {
+  const { id } = useParams<{ id: string }>();
+  const product = productsData.find((p) => p.id === id);
+
   const [selectedPower, setSelectedPower] = useState("Rechargeable");
   const [selectedChannel, setSelectedChannel] = useState("Dual Channel");
   const [selectedColor, setSelectedColor] = useState("White");
@@ -46,6 +27,16 @@ const ProductDetail = () => {
   const [mainImage, setMainImage] = useState(0);
   const [activeTab, setActiveTab] = useState<"description" | "specs" | "support">("description");
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+
+  if (!product) return <Navigate to="/products" replace />;
+
+  const powerSources = product.powerSources ?? defaultPowerSources;
+  const channels = product.channels ?? defaultChannels;
+  const accentColors = product.accentColors ?? defaultAccentColors;
+  const thumbnails = product.gallery;
+  const specs = product.specs ?? [];
+
+  const relatedProducts = productsData.filter((p) => p.id !== product.id).slice(0, 4);
 
   return (
     <div className="min-h-screen bg-background">
@@ -58,9 +49,9 @@ const ProductDetail = () => {
           <p className="text-sm text-muted-foreground">
             <Link to="/" className="hover:text-primary transition-colors">Home</Link>
             {" / "}
-            <span>Products</span>
+            <Link to="/products" className="hover:text-primary transition-colors">Products</Link>
             {" / "}
-            <span className="text-foreground">TENS Machine</span>
+            <span className="text-foreground">{product.name}</span>
           </p>
         </div>
       </section>
@@ -74,7 +65,7 @@ const ProductDetail = () => {
               <div className="bg-muted rounded-2xl p-6 flex items-center justify-center aspect-square w-full">
                 <img
                   src={thumbnails[mainImage]}
-                  alt="Advanced TENS Unit"
+                  alt={product.name}
                   className="max-h-full max-w-full object-contain transition-transform duration-500 hover:scale-105"
                   width={800}
                   height={800}
@@ -97,83 +88,87 @@ const ProductDetail = () => {
 
             {/* Details */}
             <div className="flex flex-col gap-4 justify-center">
-              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Electrotherapy Device</p>
-              <div className="flex items-center gap-3">
-                <h2 className="text-2xl md:text-3xl font-bold text-primary">Advanced TENS Unit for Pain Management</h2>
-              </div>
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{product.category}</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-primary">{product.name}</h2>
               <div className="flex items-center gap-3 flex-wrap">
                 <span className="text-xs font-semibold bg-accent text-accent-foreground px-2.5 py-1 rounded-full">In Stock</span>
                 <div className="flex">
                   {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className={`h-4 w-4 ${s <= 4 ? "text-accent-foreground fill-accent-foreground" : "text-border"}`} />
+                    <Star key={s} className={`h-4 w-4 ${s <= Math.floor(product.rating) ? "text-accent-foreground fill-accent-foreground" : "text-border"}`} />
                   ))}
                 </div>
-                <span className="text-sm text-muted-foreground">4.8 (312 Reviews)</span>
+                <span className="text-sm text-muted-foreground">{product.rating} ({product.reviewCount} Reviews)</span>
               </div>
               <div className="flex items-baseline gap-3">
-                <span className="text-2xl font-bold text-foreground">€75.00</span>
-                <span className="text-lg text-muted-foreground line-through">€99.00</span>
+                <span className="text-2xl font-bold text-foreground">€{product.price.toFixed(2)}</span>
+                {product.originalPrice && (
+                  <span className="text-lg text-muted-foreground line-through">€{product.originalPrice.toFixed(2)}</span>
+                )}
               </div>
-              <p className="text-sm text-muted-foreground leading-[1.7] max-w-md">
-                Professional-grade transcutaneous electrical nerve stimulation unit designed for effective pain management. Ideal for physiotherapy clinics and home rehabilitation.
-              </p>
+              <p className="text-sm text-muted-foreground leading-[1.7] max-w-md">{product.shortDescription}</p>
 
               {/* Power Source */}
-              <div>
-                <p className="text-sm font-semibold text-foreground mb-2">Power Source</p>
-                <div className="flex flex-wrap gap-2">
-                  {powerSources.map((s) => (
-                    <button
-                      key={s}
-                      onClick={() => setSelectedPower(s)}
-                      className={`px-5 py-2 rounded-full text-sm font-medium border transition-colors ${
-                        selectedPower === s
-                          ? "bg-primary text-primary-foreground border-primary"
-                          : "border-border text-foreground hover:border-primary"
-                      }`}
-                    >
-                      {s}
-                    </button>
-                  ))}
+              {powerSources.length > 0 && (
+                <div>
+                  <p className="text-sm font-semibold text-foreground mb-2">Power Source</p>
+                  <div className="flex flex-wrap gap-2">
+                    {powerSources.map((s) => (
+                      <button
+                        key={s}
+                        onClick={() => setSelectedPower(s)}
+                        className={`px-5 py-2 rounded-full text-sm font-medium border transition-colors ${
+                          selectedPower === s
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "border-border text-foreground hover:border-primary"
+                        }`}
+                      >
+                        {s}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Channels */}
-              <div>
-                <p className="text-sm font-semibold text-foreground mb-2">Channels</p>
-                <div className="flex flex-wrap gap-2">
-                  {channels.map((c) => (
-                    <button
-                      key={c}
-                      onClick={() => setSelectedChannel(c)}
-                      className={`px-5 py-2 rounded-full text-sm font-medium border transition-colors ${
-                        selectedChannel === c
-                          ? "bg-primary text-primary-foreground border-primary"
-                          : "border-border text-foreground hover:border-primary"
-                      }`}
-                    >
-                      {c}
-                    </button>
-                  ))}
+              {channels.length > 0 && (
+                <div>
+                  <p className="text-sm font-semibold text-foreground mb-2">Channels</p>
+                  <div className="flex flex-wrap gap-2">
+                    {channels.map((c) => (
+                      <button
+                        key={c}
+                        onClick={() => setSelectedChannel(c)}
+                        className={`px-5 py-2 rounded-full text-sm font-medium border transition-colors ${
+                          selectedChannel === c
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "border-border text-foreground hover:border-primary"
+                        }`}
+                      >
+                        {c}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Accent Color */}
-              <div>
-                <p className="text-sm font-semibold text-foreground mb-2">Accent Color: {selectedColor}</p>
-                <div className="flex gap-2">
-                  {accentColors.map((c) => (
-                    <button
-                      key={c.name}
-                      onClick={() => setSelectedColor(c.name)}
-                      className={`w-8 h-8 rounded-full ${c.class} transition-all ${
-                        selectedColor === c.name ? "ring-2 ring-primary ring-offset-2" : ""
-                      }`}
-                      aria-label={c.name}
-                    />
-                  ))}
+              {accentColors.length > 0 && (
+                <div>
+                  <p className="text-sm font-semibold text-foreground mb-2">Accent Color: {selectedColor}</p>
+                  <div className="flex gap-2">
+                    {accentColors.map((c) => (
+                      <button
+                        key={c.name}
+                        onClick={() => setSelectedColor(c.name)}
+                        className={`w-8 h-8 rounded-full ${c.class} transition-all ${
+                          selectedColor === c.name ? "ring-2 ring-primary ring-offset-2" : ""
+                        }`}
+                        aria-label={c.name}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Quantity + CTA */}
               <div className="flex flex-row flex-wrap items-center gap-3">
@@ -186,7 +181,7 @@ const ProductDetail = () => {
                     <Plus className="h-4 w-4 text-foreground" />
                   </button>
                 </div>
-                <button className="px-7 py-2.5 bg-primary text-primary-foreground text-sm font-semibold rounded-lg hover:bg-primary-dark transition-colors">
+                <button className="px-7 py-2.5 bg-primary text-primary-foreground text-sm font-semibold rounded-lg hover:bg-primary/90 transition-colors">
                   Add to Cart
                 </button>
                 <button className="px-7 py-2.5 bg-accent text-accent-foreground text-sm font-semibold rounded-lg hover:bg-accent/80 transition-colors">
@@ -199,8 +194,8 @@ const ProductDetail = () => {
 
               {/* Meta */}
               <div className="space-y-1.5 text-sm text-muted-foreground border-t border-border pt-5">
-                <p><span className="font-medium text-foreground">SKU:</span> TENS-ADV-4CH</p>
-                <p><span className="font-medium text-foreground">Tags:</span> Pain Relief, Rehab, Electrotherapy</p>
+                <p><span className="font-medium text-foreground">SKU:</span> {product.sku}</p>
+                <p><span className="font-medium text-foreground">Tags:</span> {product.tags.join(", ")}</p>
                 <div className="flex items-center gap-3 pt-1">
                   <span className="font-medium text-foreground">Share:</span>
                   {[Facebook, Twitter, Linkedin].map((Icon, i) => (
@@ -242,14 +237,11 @@ const ProductDetail = () => {
           <div className="min-h-[200px] w-full">
             {activeTab === "description" && (
               <div className="max-w-3xl animate-fade-in">
-                <p className="text-muted-foreground leading-[1.8] mb-4">
-                  Our Advanced TENS Unit delivers targeted electrical nerve stimulation to provide effective, drug-free pain relief. Designed in collaboration with physiotherapy professionals, this device is suitable for managing chronic pain, post-surgical recovery, and sports injuries.
-                </p>
-                <p className="text-muted-foreground leading-[1.8] mb-6">
-                  Featuring multiple pre-set therapy programs and fully adjustable intensity levels, the unit adapts to individual patient needs. The ergonomic design and intuitive controls make it accessible for both clinical practitioners and home users.
-                </p>
+                {product.longDescription.map((para, i) => (
+                  <p key={i} className="text-muted-foreground leading-[1.8] mb-4">{para}</p>
+                ))}
                 <ul className="space-y-3">
-                  {descriptionBullets.map((b) => (
+                  {product.bullets.map((b) => (
                     <li key={b} className="flex items-start gap-3">
                       <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                       <span className="text-sm text-muted-foreground leading-relaxed">{b}</span>
@@ -260,25 +252,20 @@ const ProductDetail = () => {
             )}
             {activeTab === "specs" && (
               <div className="max-w-2xl animate-fade-in">
-                <table className="w-full text-sm">
-                  <tbody className="divide-y divide-border">
-                    {[
-                      ["Weight", "0.35 kg"],
-                      ["Dimensions", "12 × 8 × 3 cm"],
-                      ["Power Source", "Rechargeable Li-ion Battery"],
-                      ["Channels", "Dual / 4-Channel (selectable)"],
-                      ["Waveform", "Symmetrical Biphasic"],
-                      ["Frequency Range", "1–150 Hz"],
-                      ["Pulse Width", "50–300 μs"],
-                      ["Warranty", "2 Years Manufacturer"],
-                    ].map(([k, v]) => (
-                      <tr key={k}>
-                        <td className="py-3 font-medium text-foreground w-48">{k}</td>
-                        <td className="py-3 text-muted-foreground">{v}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                {specs.length > 0 ? (
+                  <table className="w-full text-sm">
+                    <tbody className="divide-y divide-border">
+                      {specs.map(([k, v]) => (
+                        <tr key={k}>
+                          <td className="py-3 font-medium text-foreground w-48">{k}</td>
+                          <td className="py-3 text-muted-foreground">{v}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <p className="text-muted-foreground">Specifications coming soon.</p>
+                )}
               </div>
             )}
             {activeTab === "support" && (
@@ -287,9 +274,8 @@ const ProductDetail = () => {
                 <div className="space-y-4">
                   {[
                     { title: "User Manual (PDF)", desc: "Complete operating instructions and safety guidelines." },
-                    { title: "Quick Start Guide", desc: "Get started with your TENS unit in under 5 minutes." },
-                    { title: "Electrode Placement Chart", desc: "Visual guide for optimal pad positioning by condition." },
-                    { title: "Warranty & Returns Policy", desc: "2-year coverage details and return procedures." },
+                    { title: "Quick Start Guide", desc: "Get started with your device in under 5 minutes." },
+                    { title: "Warranty & Returns Policy", desc: "Coverage details and return procedures." },
                   ].map((doc) => (
                     <div key={doc.title} className="border border-border rounded-lg p-4 hover:bg-accent/50 transition-colors cursor-pointer">
                       <p className="text-sm font-semibold text-foreground">{doc.title}</p>
@@ -312,8 +298,9 @@ const ProductDetail = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {relatedProducts.map((p, i) => (
-              <div
-                key={i}
+              <Link
+                to={`/product/${p.id}`}
+                key={p.id}
                 className="bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 group relative"
                 onMouseEnter={() => setHoveredCard(i)}
                 onMouseLeave={() => setHoveredCard(null)}
@@ -332,8 +319,8 @@ const ProductDetail = () => {
                 </button>
                 <div className="bg-muted p-4 aspect-square flex items-center justify-center overflow-hidden">
                   <img
-                    src={p.img}
-                    alt={p.title}
+                    src={p.image}
+                    alt={p.name}
                     className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-110"
                     loading="lazy"
                     width={600}
@@ -342,7 +329,7 @@ const ProductDetail = () => {
                 </div>
                 <div className="p-4">
                   <p className="text-xs text-muted-foreground mb-0.5">{p.category}</p>
-                  <h3 className="text-sm font-semibold text-foreground mb-1">{p.title}</h3>
+                  <h3 className="text-sm font-semibold text-foreground mb-1">{p.name}</h3>
                   <div className="flex items-center gap-1 mb-2">
                     <div className="flex">
                       {[1, 2, 3, 4, 5].map((s) => (
@@ -353,10 +340,10 @@ const ProductDetail = () => {
                   </div>
                   <div className="flex items-baseline gap-2">
                     <span className="text-sm font-bold text-foreground">€{p.price.toFixed(2)}</span>
-                    {p.old && <span className="text-xs text-muted-foreground line-through">€{p.old.toFixed(2)}</span>}
+                    {p.originalPrice && <span className="text-xs text-muted-foreground line-through">€{p.originalPrice.toFixed(2)}</span>}
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
