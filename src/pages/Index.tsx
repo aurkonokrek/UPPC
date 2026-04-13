@@ -264,10 +264,10 @@ const Index = () => {
         </div>
       </section>
 
-      {/* How It Works */}
+      {/* How It Works - Staggered Cards */}
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4 lg:px-8">
-          <AnimatedSection className="text-center mb-12">
+          <AnimatedSection className="text-center mb-16">
             <p className="text-sm font-medium text-primary uppercase tracking-wider mb-2">HOW IT WORKS</p>
             <TextReveal
               text="A Patient-Centered Approach For Effective, Long-Lasting Results"
@@ -275,20 +275,20 @@ const Index = () => {
               className="text-3xl md:text-4xl font-bold text-foreground"
             />
           </AnimatedSection>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
             {[
-              { icon: CalendarCheck, title: "Make an Appointment", desc: "Schedule your visit easily online or by phone." },
-              { icon: ClipboardList, title: "Get a Consultation", desc: "Our experts assess your condition thoroughly." },
-              { icon: UserCheck, title: "Meet Our Therapist", desc: "Get matched with a specialist for your needs." },
-              { icon: Hand, title: "Hands-On Therapy", desc: "Begin your personalized treatment plan." },
+              { icon: CalendarCheck, title: "Make an Appointment", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.", offset: "" },
+              { icon: BedDouble, title: "Get a Consultation", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.", offset: "lg:mt-16" },
+              { icon: Cross, title: "Meet Our Therapist", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.", offset: "" },
+              { icon: Briefcase, title: "Hands-On Therapy", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.", offset: "lg:mt-16" },
             ].map((step, i) => (
-              <AnimatedSection key={step.title} delay={i * 150}>
-                <div className="bg-card p-6 rounded-xl text-center hover:shadow-lg transition-shadow duration-300 hover:-translate-y-1">
-                  <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-accent flex items-center justify-center">
-                    <step.icon className="h-7 w-7 text-primary" />
+              <AnimatedSection key={step.title} delay={i * 150} className={step.offset}>
+                <div className="bg-card p-8 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                  <div className="w-16 h-16 mb-6">
+                    <step.icon className="h-12 w-12 text-primary" strokeWidth={1.5} />
                   </div>
-                  <h3 className="font-bold text-foreground mb-2">{step.title}</h3>
-                  <p className="text-sm text-muted-foreground">{step.desc}</p>
+                  <h3 className="text-lg font-bold text-foreground mb-3">{step.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -328,24 +328,58 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Products */}
+      {/* Products Carousel */}
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4 lg:px-8">
-          <AnimatedSection className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-foreground">Products</h2>
+          <AnimatedSection>
+            <div className="flex items-end justify-between mb-8">
+              <div>
+                <p className="text-sm font-medium text-primary mb-1">Tagline</p>
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground">Products</h2>
+                <p className="text-muted-foreground text-sm mt-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+              <button className="hidden md:inline-flex px-5 py-2 border border-foreground rounded-full text-sm font-medium text-foreground hover:bg-foreground hover:text-background transition-colors">
+                View all
+              </button>
+            </div>
           </AnimatedSection>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[1,2,3,4].map(i => (
-              <AnimatedSection key={i} delay={i * 100}>
-                <div className="bg-card rounded-xl p-6 text-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-                  <div className="w-16 h-16 mx-auto mb-3 bg-accent rounded-lg flex items-center justify-center">
-                    <HeartPulse className="h-8 w-8 text-primary" />
+          <div className="overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
+            <div className="flex gap-5 min-w-max">
+              {[1,2,3,4,5].map(i => (
+                <AnimatedSection key={i} delay={i * 80}>
+                  <div className="w-56 flex-shrink-0">
+                    <div className="bg-muted-foreground/10 rounded-xl h-64 flex items-center justify-center mb-3">
+                      <HeartPulse className="h-10 w-10 text-muted-foreground/40" />
+                    </div>
+                    <div className="flex items-start justify-between mb-1">
+                      <div>
+                        <p className="text-sm font-semibold text-primary">Product name</p>
+                        <p className="text-xs text-muted-foreground">Variant</p>
+                      </div>
+                      <p className="text-sm font-bold text-foreground">$55</p>
+                    </div>
+                    <button className="w-full mt-2 py-2 border border-primary text-sm font-medium text-foreground rounded hover:bg-primary hover:text-primary-foreground transition-colors">
+                      Add to cart
+                    </button>
                   </div>
-                  <p className="text-sm font-medium text-foreground">Product Name</p>
-                  <p className="text-xs text-muted-foreground">Health Product</p>
-                </div>
-              </AnimatedSection>
-            ))}
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+          <div className="flex items-center justify-between mt-6">
+            <div className="flex gap-2">
+              {[0,1,2,3,4].map(i => (
+                <div key={i} className={`w-2 h-2 rounded-full ${i === 0 ? "bg-primary" : "bg-muted-foreground/30"}`} />
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <button className="w-10 h-10 rounded-full border border-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors text-primary">
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button className="w-10 h-10 rounded-full border border-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors text-primary">
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -366,26 +400,34 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Final CTA with Parallax */}
-      <section className="relative py-20 overflow-hidden">
-        <div
-          className="absolute inset-0 bg-hero-gradient"
-          style={{ transform: `translateY(${parallaxOffset * -0.1}px)` }}
-        />
-        <div className="container mx-auto px-4 lg:px-8 relative z-10">
-          <AnimatedSection className="max-w-xl">
-            <TextReveal
-              text="Ready to take the first step toward a pain-free life?"
-              as="h2"
-              className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4 leading-tight"
-            />
-            <p className="text-primary-foreground/80 mb-6 leading-relaxed">
-              Our team of experienced physiotherapists is here to help you recover, rebuild, and reclaim your quality of life.
-            </p>
-            <Link to="/contact" className="inline-flex items-center px-8 py-3 bg-primary-foreground text-primary font-semibold rounded-full hover:shadow-lg transition-all text-sm">
-              Book Now
-            </Link>
-          </AnimatedSection>
+      {/* Final CTA with Image */}
+      <section className="relative overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[400px]">
+          <div className="bg-accent/30 px-8 lg:px-16 py-16 flex flex-col justify-center">
+            <AnimatedSection>
+              <TextReveal
+                text="Ready to take the first step toward a pain-free life?"
+                as="h2"
+                className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight"
+              />
+              <p className="text-muted-foreground mb-8 leading-relaxed max-w-md">
+                Our team is the heart and soul of our organization. Comprised of dedicated professionals from diverse backgrounds
+              </p>
+              <div className="flex max-w-md">
+                <input
+                  type="email"
+                  placeholder="EMAIL ADDRESS"
+                  className="flex-1 px-4 py-3 border border-border bg-background text-sm text-foreground placeholder:text-muted-foreground/60 placeholder:text-xs placeholder:tracking-widest focus:outline-none focus:ring-1 focus:ring-primary"
+                />
+                <button className="px-6 py-3 bg-primary text-primary-foreground text-sm font-semibold tracking-wider hover:bg-primary/90 transition-colors">
+                  SUBMIT
+                </button>
+              </div>
+            </AnimatedSection>
+          </div>
+          <div className="hidden lg:block">
+            <img src={ctaImg} alt="Physiotherapy care" className="w-full h-full object-cover" loading="lazy" width={960} height={640} />
+          </div>
         </div>
       </section>
 
