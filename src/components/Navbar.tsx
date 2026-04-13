@@ -7,7 +7,7 @@ const navLinks = [
   { label: "Home", path: "/" },
   { label: "About Us", path: "/about" },
   { label: "Services", path: "/services" },
-  { label: "Product", path: "/services#products" },
+  { label: "Product", path: "/product/tens-unit" },
   { label: "Blog", path: "/blog" },
   { label: "Contact", path: "/contact" },
 ];
