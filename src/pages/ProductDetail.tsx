@@ -193,10 +193,10 @@ const ProductDetail = () => {
                     Order via WhatsApp
                   </a>
                   <button
-                    onClick={() => toast('Our online checkout is currently being upgraded for better security. To purchase this item immediately, please use the "Order via WhatsApp" button to speak with our staff.')}
+                    onClick={() => toast('Our specialists are ready to answer your questions! Please use the WhatsApp button below to inquire about sizing, usage, or delivery for this product.')}
                     className="px-7 py-2.5 border-2 border-primary text-primary bg-transparent text-sm font-semibold rounded-lg hover:bg-primary/5 transition-colors"
                   >
-                    Add to Cart
+                    Inquire About Product
                   </button>
                   <button className="w-10 h-10 border border-border rounded-lg flex items-center justify-center hover:bg-accent transition-colors">
                     <Heart className="h-5 w-5 text-accent-foreground" />
