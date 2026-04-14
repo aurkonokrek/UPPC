@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Link, useParams, Navigate } from "react-router-dom";
 import {
   Star, Heart, Minus, Plus, Truck, ShieldCheck, Headphones,
-  CheckCircle2, Facebook, Twitter, Linkedin
+  CheckCircle2, Facebook, Twitter, Linkedin, MessageCircle
 } from "lucide-react";
+import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import productsData from "@/data/productsData";
@@ -171,25 +172,37 @@ const ProductDetail = () => {
               )}
 
               {/* Quantity + CTA */}
-              <div className="flex flex-row flex-wrap items-center gap-3">
-                <div className="flex items-center border border-border rounded-lg overflow-hidden">
-                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="px-3 py-2.5 hover:bg-accent transition-colors">
-                    <Minus className="h-4 w-4 text-foreground" />
+              <div className="flex flex-col gap-3">
+                <div className="flex flex-row flex-wrap items-center gap-3">
+                  <div className="flex items-center border border-border rounded-lg overflow-hidden">
+                    <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="px-3 py-2.5 hover:bg-accent transition-colors">
+                      <Minus className="h-4 w-4 text-foreground" />
+                    </button>
+                    <span className="px-5 py-2.5 text-sm font-medium text-foreground min-w-[48px] text-center">{quantity}</span>
+                    <button onClick={() => setQuantity(quantity + 1)} className="px-3 py-2.5 hover:bg-accent transition-colors">
+                      <Plus className="h-4 w-4 text-foreground" />
+                    </button>
+                  </div>
+                  <a
+                    href={`https://wa.me/8801XXXXXXXXX?text=${encodeURIComponent(`Hi UPPC, I am interested in ordering the ${product.name} priced at €${product.price.toFixed(2)}.`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-7 py-2.5 bg-[#25D366] text-white text-sm font-semibold rounded-lg hover:bg-[#20bd5a] transition-colors"
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    Order via WhatsApp
+                  </a>
+                  <button
+                    onClick={() => toast('Our online checkout is currently being upgraded for better security. To purchase this item immediately, please use the "Order via WhatsApp" button to speak with our staff.')}
+                    className="px-7 py-2.5 border-2 border-primary text-primary bg-transparent text-sm font-semibold rounded-lg hover:bg-primary/5 transition-colors"
+                  >
+                    Add to Cart
                   </button>
-                  <span className="px-5 py-2.5 text-sm font-medium text-foreground min-w-[48px] text-center">{quantity}</span>
-                  <button onClick={() => setQuantity(quantity + 1)} className="px-3 py-2.5 hover:bg-accent transition-colors">
-                    <Plus className="h-4 w-4 text-foreground" />
+                  <button className="w-10 h-10 border border-border rounded-lg flex items-center justify-center hover:bg-accent transition-colors">
+                    <Heart className="h-5 w-5 text-accent-foreground" />
                   </button>
                 </div>
-                <button className="px-7 py-2.5 bg-primary text-primary-foreground text-sm font-semibold rounded-lg hover:bg-primary/90 transition-colors">
-                  Add to Cart
-                </button>
-                <button className="px-7 py-2.5 bg-accent text-accent-foreground text-sm font-semibold rounded-lg hover:bg-accent/80 transition-colors">
-                  Purchase Now
-                </button>
-                <button className="w-10 h-10 border border-border rounded-lg flex items-center justify-center hover:bg-accent transition-colors">
-                  <Heart className="h-5 w-5 text-accent-foreground" />
-                </button>
+                <p className="text-xs text-muted-foreground text-center md:text-left">Available for Home Delivery or In-Clinic Pickup in Dhaka.</p>
               </div>
 
               {/* Meta */}
