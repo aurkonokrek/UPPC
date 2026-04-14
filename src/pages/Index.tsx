@@ -426,7 +426,7 @@ const Index = () => {
               as="h2"
               className="text-3xl md:text-4xl font-bold text-primary-foreground mb-6 leading-tight"
             />
-            <Link to="/contact" className="inline-flex items-center px-8 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:opacity-90 transition-all duration-300 text-sm">
+            <Link to="/about" className="inline-flex items-center px-8 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:opacity-90 transition-all duration-300 text-sm">
               Learn More
             </Link>
           </AnimatedSection>
