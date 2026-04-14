@@ -82,7 +82,7 @@ const Index = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-hero-gradient pt-32 md:pt-36 lg:pt-40">
+      <section className="relative overflow-hidden bg-hero-gradient pt-32 md:pt-36 lg:pt-40 pb-32 md:pb-40">
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <div className="grid md:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
             {/* Left Column */}
@@ -125,7 +125,7 @@ const Index = () => {
 
       {/* Info Bar + Appointment — unified floating strip */}
       <AnimatedSection>
-        <div className="max-w-5xl mx-auto px-4 -mt-16 relative z-10">
+        <div className="max-w-5xl mx-auto px-4 -mt-16 relative z-10 mb-20">
           <div className="bg-background shadow-xl rounded-2xl overflow-hidden">
             <div className="flex flex-col md:flex-row items-stretch">
               <div className="flex-1 flex items-center gap-4 px-8 py-6 border-b md:border-b-0 md:border-r border-border">
