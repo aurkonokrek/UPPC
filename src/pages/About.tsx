@@ -30,6 +30,7 @@ const AnimatedSection = ({ children, className = "", delay = 0 }: { children: Re
 
 const About = () => {
   const parallaxOffset = useParallax(0.1);
+  const [activeTab, setActiveTab] = useState<"Management" | "Physiotherapist" | "Staff">("Management");
 
   return (
     <div className="min-h-screen">
