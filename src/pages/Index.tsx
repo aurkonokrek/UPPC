@@ -123,12 +123,12 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Info Bar + Appointment — unified strip */}
+      {/* Info Bar + Appointment — unified floating strip */}
       <AnimatedSection>
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="bg-background shadow-lg -mt-8 relative z-20 rounded-xl overflow-hidden">
+        <div className="max-w-5xl mx-auto px-4 -mt-16 relative z-10">
+          <div className="bg-background shadow-xl rounded-2xl overflow-hidden">
             <div className="flex flex-col md:flex-row items-stretch">
-              <div className="flex-1 flex items-center gap-4 px-8 py-5 border-b md:border-b-0 md:border-r border-border">
+              <div className="flex-1 flex items-center gap-4 px-8 py-6 border-b md:border-b-0 md:border-r border-border">
                 <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center flex-shrink-0">
                   <Clock className="h-5 w-5 text-primary" />
                 </div>
@@ -137,7 +137,7 @@ const Index = () => {
                   <p className="text-xs text-muted-foreground">Mon-Sat: 9AM - 8PM</p>
                 </div>
               </div>
-              <div className="flex-1 flex items-center gap-4 px-8 py-5 border-b md:border-b-0 md:border-r border-border">
+              <div className="flex-1 flex items-center gap-4 px-8 py-6 border-b md:border-b-0 md:border-r border-border">
                 <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center flex-shrink-0">
                   <MapPin className="h-5 w-5 text-primary" />
                 </div>
@@ -146,12 +146,15 @@ const Index = () => {
                   <p className="text-xs text-muted-foreground">Mirpur, Dhaka</p>
                 </div>
               </div>
-              <Link
-                to="/contact"
-                className="flex items-center justify-center px-10 py-5 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors whitespace-nowrap"
-              >
-                Make an Appointment
-              </Link>
+              <div className="flex items-center justify-center px-8 py-6">
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2 rounded-full px-6 py-3 bg-primary-dark text-primary-foreground text-sm font-semibold hover:shadow-lg hover:-translate-y-1 transition-all duration-300 whitespace-nowrap"
+                >
+                  Make an Appointment
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
