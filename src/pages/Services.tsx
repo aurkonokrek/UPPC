@@ -26,11 +26,11 @@ const AnimatedSection = ({ children, className = "", delay = 0 }: { children: Re
 };
 
 const testimonials = [
-  { text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.", name: "Name Surname", role: "Position, Company name" },
-  { text: "The team at UPPC provided exceptional care during my recovery. Their expertise and compassion made all the difference in my rehabilitation journey.", name: "Sarah Johnson", role: "Patient" },
-  { text: "Outstanding physiotherapy services. The personalized approach and professional staff helped me recover much faster than expected.", name: "Ahmed Rahman", role: "Patient" },
-  { text: "I highly recommend UPPC for anyone dealing with chronic pain. The therapists are knowledgeable and truly care about their patients.", name: "Fatima Akhter", role: "Patient" },
-  { text: "After my stroke, the rehabilitation team at UPPC helped me regain my independence. Forever grateful for their dedication.", name: "Karim Hossain", role: "Patient" },
+  { text: "After years of chronic lower back pain, the team at UPPC designed a personalized treatment plan that completely transformed my quality of life. I can now play with my children without any discomfort.", name: "Rashid Ahmed", role: "Lower Back Pain Recovery" },
+  { text: "The post-surgical rehabilitation program was outstanding. The therapists were patient, knowledgeable, and truly invested in my recovery. I regained full mobility in half the expected time.", name: "Sarah Johnson", role: "Post-Surgical Rehabilitation" },
+  { text: "Outstanding sports injury management. After tearing my ACL, the personalized approach and professional staff helped me return to competitive football much faster than expected.", name: "Ahmed Rahman", role: "Sports Injury Recovery" },
+  { text: "I suffered from severe neck and shoulder pain for months. The manual therapy sessions at UPPC provided incredible relief. The therapists genuinely care about their patients' well-being.", name: "Fatima Akhter", role: "Chronic Pain Management" },
+  { text: "After my stroke, the rehabilitation team at UPPC helped me regain my independence step by step. Their expertise in neurological recovery is truly world-class. Forever grateful.", name: "Karim Hossain", role: "Stroke Rehabilitation" },
 ];
 
 const services = [
@@ -70,38 +70,49 @@ const Services = () => {
 
       <AppointmentForm />
 
-      {/* Testimonial */}
-      <section className="py-20">
+      {/* Patient Success Stories */}
+      <section className="py-20 bg-accent/50">
         <div className="container mx-auto px-4 lg:px-8">
+          <AnimatedSection className="text-center mb-12">
+            <p className="text-sm font-medium text-primary uppercase tracking-wider mb-2">TESTIMONIALS</p>
+            <TextReveal text="Patient Success Stories" as="h2" className="text-3xl md:text-4xl font-bold text-foreground" />
+          </AnimatedSection>
           <AnimatedSection>
-            <div className="max-w-3xl mx-auto text-center">
-              <p className="text-lg md:text-xl font-medium text-foreground italic leading-relaxed mb-8 transition-opacity duration-500">
-                "{testimonials[currentTestimonial].text}"
-              </p>
-              <div className="w-12 h-12 rounded-full bg-accent mx-auto mb-3 flex items-center justify-center">
-                <UserCheck className="h-6 w-6 text-primary" />
-              </div>
-              <p className="font-semibold text-primary">{testimonials[currentTestimonial].name}</p>
-              <p className="text-sm text-muted-foreground">{testimonials[currentTestimonial].role}</p>
-              <div className="flex items-center justify-center gap-4 mt-6">
-                <button
-                  onClick={() => setCurrentTestimonial((p) => (p - 1 + testimonials.length) % testimonials.length)}
-                  className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-accent transition-colors"
-                >
-                  <ChevronLeft className="h-5 w-5 text-foreground" />
-                </button>
-                <div className="flex gap-2">
-                  {testimonials.map((_, i) => (
-                    <button key={i} onClick={() => setCurrentTestimonial(i)} className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === currentTestimonial ? "bg-primary w-6" : "bg-border"}`} />
-                  ))}
+            <div className="max-w-4xl mx-auto relative bg-card shadow-xl rounded-2xl p-8 md:p-12">
+              {/* Quote accent */}
+              <span className="absolute top-4 left-6 text-[120px] leading-none font-serif text-primary/10 select-none pointer-events-none" aria-hidden="true">"</span>
+
+              <div className="relative z-10 text-center">
+                <p className="text-lg md:text-xl text-muted-foreground italic leading-relaxed mb-8 transition-opacity duration-500">
+                  "{testimonials[currentTestimonial].text}"
+                </p>
+                <div className="w-12 h-12 rounded-full bg-accent mx-auto mb-3 flex items-center justify-center">
+                  <UserCheck className="h-6 w-6 text-primary" />
                 </div>
-                <button
-                  onClick={() => setCurrentTestimonial((p) => (p + 1) % testimonials.length)}
-                  className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-accent transition-colors"
-                >
-                  <ChevronRight className="h-5 w-5 text-foreground" />
-                </button>
+                <p className="font-semibold text-primary">{testimonials[currentTestimonial].name}</p>
+                <p className="text-sm text-muted-foreground">{testimonials[currentTestimonial].role}</p>
               </div>
+            </div>
+
+            {/* Navigation below card */}
+            <div className="flex items-center justify-center gap-4 mt-8">
+              <button
+                onClick={() => setCurrentTestimonial((p) => (p - 1 + testimonials.length) % testimonials.length)}
+                className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-accent transition-colors"
+              >
+                <ChevronLeft className="h-5 w-5 text-foreground" />
+              </button>
+              <div className="flex gap-2">
+                {testimonials.map((_, i) => (
+                  <button key={i} onClick={() => setCurrentTestimonial(i)} className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === currentTestimonial ? "bg-primary w-6" : "bg-border"}`} />
+                ))}
+              </div>
+              <button
+                onClick={() => setCurrentTestimonial((p) => (p + 1) % testimonials.length)}
+                className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-accent transition-colors"
+              >
+                <ChevronRight className="h-5 w-5 text-foreground" />
+              </button>
             </div>
           </AnimatedSection>
         </div>
