@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
-import { Phone, Clock, MapPin, HeartPulse, ArrowRight, CalendarCheck, UserCheck, ClipboardList, Hand, ChevronLeft, ChevronRight, BedDouble, Cross, Briefcase } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Phone, Clock, MapPin, HeartPulse, ArrowRight, CalendarCheck, UserCheck, ClipboardList, Hand, ChevronLeft, ChevronRight, BedDouble, Cross, Briefcase, Facebook, Linkedin } from "lucide-react";
+import productsData from "@/data/productsData";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useParallax } from "@/hooks/useParallax";
 import Navbar from "@/components/Navbar";
@@ -71,7 +72,17 @@ const heroImages = [heroImg, aboutImg, servicePhysio];
 const Index = () => {
   const [heroLoaded, setHeroLoaded] = useState(false);
   const parallaxOffset = useParallax(0.15);
+  const navigate = useNavigate();
+  const carouselRef = useRef<HTMLDivElement>(null);
 
+  const scrollCarousel = (direction: "left" | "right") => {
+    if (!carouselRef.current) return;
+    const scrollAmount = 280;
+    carouselRef.current.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
   useEffect(() => {
     const t = setTimeout(() => setHeroLoaded(true), 100);
     return () => clearTimeout(t);
@@ -226,9 +237,13 @@ const Index = () => {
               <p className="text-muted-foreground leading-relaxed mb-6">
                 Our team is the heart and soul of our organization. Comprised of dedicated professionals from diverse backgrounds with a shared vision.
               </p>
-              <Link to="/about" className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-full hover:bg-primary-dark transition-colors text-sm">
-                GET APPOINTMENT
-              </Link>
+              <button
+                onClick={() => navigate("/about")}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-full hover:bg-primary-dark hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-sm"
+              >
+                Meet the Care Team
+                <ArrowRight className="h-4 w-4" />
+              </button>
             </AnimatedSection>
             <AnimatedSection delay={200}>
               <div className="grid grid-cols-3 gap-4">
@@ -243,7 +258,18 @@ const Index = () => {
                     </div>
                     <div className="p-3 bg-card text-center">
                       <p className="text-xs font-semibold text-foreground">{d.name}</p>
-                      <p className="text-[10px] text-muted-foreground">{d.role}</p>
+                      <p className="text-[10px] text-muted-foreground mb-2">{d.role}</p>
+                      <div className="flex items-center justify-center gap-3">
+                        <a href="#" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Facebook">
+                          <Facebook className="h-4 w-4" />
+                        </a>
+                        <a href="#" className="text-muted-foreground hover:text-primary transition-colors" aria-label="LinkedIn">
+                          <Linkedin className="h-4 w-4" />
+                        </a>
+                        <a href="#" className="text-muted-foreground hover:text-[#25D366] transition-colors" aria-label="WhatsApp">
+                          <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -346,52 +372,47 @@ const Index = () => {
           <AnimatedSection>
             <div className="flex items-end justify-between mb-8">
               <div>
-                <p className="text-sm font-medium text-primary mb-1">Tagline</p>
+                <p className="text-sm font-medium text-primary mb-1">Our Products</p>
                 <h2 className="text-2xl md:text-3xl font-bold text-foreground">Products</h2>
-                <p className="text-muted-foreground text-sm mt-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p className="text-muted-foreground text-sm mt-1">Professional rehabilitation equipment for clinic and home use.</p>
               </div>
-              <button className="hidden md:inline-flex px-5 py-2 border border-foreground rounded-full text-sm font-medium text-foreground hover:bg-foreground hover:text-background transition-colors">
+              <Link to="/products" className="hidden md:inline-flex px-5 py-2 border border-foreground rounded-full text-sm font-medium text-foreground hover:bg-foreground hover:text-background transition-colors">
                 View all
-              </button>
+              </Link>
             </div>
           </AnimatedSection>
-          <div className="overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
+          <div ref={carouselRef} className="overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide scroll-smooth">
             <div className="flex gap-5 min-w-max">
-              {[1,2,3,4,5].map(i => (
-                <AnimatedSection key={i} delay={i * 80}>
+              {productsData.slice(0, 6).map((product, i) => (
+                <AnimatedSection key={product.id} delay={i * 80}>
                   <div className="w-56 flex-shrink-0">
-                    <div className="bg-muted-foreground/10 rounded-xl h-64 flex items-center justify-center mb-3">
-                      <HeartPulse className="h-10 w-10 text-muted-foreground/40" />
-                    </div>
-                    <div className="flex items-start justify-between mb-1">
-                      <div>
-                        <p className="text-sm font-semibold text-primary">Product name</p>
-                        <p className="text-xs text-muted-foreground">Variant</p>
+                    <Link to={`/product/${product.id}`} className="block">
+                      <div className="bg-background rounded-xl h-64 overflow-hidden mb-3 group">
+                        <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                       </div>
-                      <p className="text-sm font-bold text-foreground">$55</p>
+                    </Link>
+                    <div className="flex items-start justify-between mb-1">
+                      <Link to={`/product/${product.id}`} className="hover:text-primary transition-colors">
+                        <p className="text-sm font-semibold text-foreground line-clamp-2 leading-tight">{product.name}</p>
+                        <p className="text-xs text-muted-foreground">{product.category}</p>
+                      </Link>
+                      <p className="text-sm font-bold text-primary ml-2 whitespace-nowrap">${product.price}</p>
                     </div>
-                    <button className="w-full mt-2 py-2 border border-primary text-sm font-medium text-foreground rounded hover:bg-primary hover:text-primary-foreground transition-colors">
-                      Add to cart
-                    </button>
+                    <Link to={`/product/${product.id}`} className="w-full mt-2 py-2 border border-primary text-sm font-medium text-foreground rounded hover:bg-primary hover:text-primary-foreground transition-colors block text-center">
+                      View Details
+                    </Link>
                   </div>
                 </AnimatedSection>
               ))}
             </div>
           </div>
-          <div className="flex items-center justify-between mt-6">
-            <div className="flex gap-2">
-              {[0,1,2,3,4].map(i => (
-                <div key={i} className={`w-2 h-2 rounded-full ${i === 0 ? "bg-primary" : "bg-muted-foreground/30"}`} />
-              ))}
-            </div>
-            <div className="flex gap-2">
-              <button className="w-10 h-10 rounded-full border border-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors text-primary">
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button className="w-10 h-10 rounded-full border border-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors text-primary">
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            </div>
+          <div className="flex items-center justify-end mt-6 gap-2">
+            <button onClick={() => scrollCarousel("left")} className="w-10 h-10 rounded-full border border-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors text-primary">
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button onClick={() => scrollCarousel("right")} className="w-10 h-10 rounded-full border border-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors text-primary">
+              <ChevronRight className="h-5 w-5" />
+            </button>
           </div>
         </div>
       </section>
