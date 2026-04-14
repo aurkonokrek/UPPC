@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Link, useParams, Navigate } from "react-router-dom";
 import {
   Star, Heart, Minus, Plus, Truck, ShieldCheck, Headphones,
-  CheckCircle2, Facebook, Twitter, Linkedin
+  CheckCircle2, Facebook, Twitter, Linkedin, MessageCircle
 } from "lucide-react";
+import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import productsData from "@/data/productsData";
