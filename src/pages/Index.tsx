@@ -372,52 +372,47 @@ const Index = () => {
           <AnimatedSection>
             <div className="flex items-end justify-between mb-8">
               <div>
-                <p className="text-sm font-medium text-primary mb-1">Tagline</p>
+                <p className="text-sm font-medium text-primary mb-1">Our Products</p>
                 <h2 className="text-2xl md:text-3xl font-bold text-foreground">Products</h2>
-                <p className="text-muted-foreground text-sm mt-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p className="text-muted-foreground text-sm mt-1">Professional rehabilitation equipment for clinic and home use.</p>
               </div>
-              <button className="hidden md:inline-flex px-5 py-2 border border-foreground rounded-full text-sm font-medium text-foreground hover:bg-foreground hover:text-background transition-colors">
+              <Link to="/products" className="hidden md:inline-flex px-5 py-2 border border-foreground rounded-full text-sm font-medium text-foreground hover:bg-foreground hover:text-background transition-colors">
                 View all
-              </button>
+              </Link>
             </div>
           </AnimatedSection>
-          <div className="overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
+          <div ref={carouselRef} className="overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide scroll-smooth">
             <div className="flex gap-5 min-w-max">
-              {[1,2,3,4,5].map(i => (
-                <AnimatedSection key={i} delay={i * 80}>
+              {productsData.slice(0, 6).map((product, i) => (
+                <AnimatedSection key={product.id} delay={i * 80}>
                   <div className="w-56 flex-shrink-0">
-                    <div className="bg-muted-foreground/10 rounded-xl h-64 flex items-center justify-center mb-3">
-                      <HeartPulse className="h-10 w-10 text-muted-foreground/40" />
-                    </div>
-                    <div className="flex items-start justify-between mb-1">
-                      <div>
-                        <p className="text-sm font-semibold text-primary">Product name</p>
-                        <p className="text-xs text-muted-foreground">Variant</p>
+                    <Link to={`/product/${product.id}`} className="block">
+                      <div className="bg-background rounded-xl h-64 overflow-hidden mb-3 group">
+                        <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                       </div>
-                      <p className="text-sm font-bold text-foreground">$55</p>
+                    </Link>
+                    <div className="flex items-start justify-between mb-1">
+                      <Link to={`/product/${product.id}`} className="hover:text-primary transition-colors">
+                        <p className="text-sm font-semibold text-foreground line-clamp-2 leading-tight">{product.name}</p>
+                        <p className="text-xs text-muted-foreground">{product.category}</p>
+                      </Link>
+                      <p className="text-sm font-bold text-primary ml-2 whitespace-nowrap">${product.price}</p>
                     </div>
-                    <button className="w-full mt-2 py-2 border border-primary text-sm font-medium text-foreground rounded hover:bg-primary hover:text-primary-foreground transition-colors">
-                      Add to cart
-                    </button>
+                    <Link to={`/product/${product.id}`} className="w-full mt-2 py-2 border border-primary text-sm font-medium text-foreground rounded hover:bg-primary hover:text-primary-foreground transition-colors block text-center">
+                      View Details
+                    </Link>
                   </div>
                 </AnimatedSection>
               ))}
             </div>
           </div>
-          <div className="flex items-center justify-between mt-6">
-            <div className="flex gap-2">
-              {[0,1,2,3,4].map(i => (
-                <div key={i} className={`w-2 h-2 rounded-full ${i === 0 ? "bg-primary" : "bg-muted-foreground/30"}`} />
-              ))}
-            </div>
-            <div className="flex gap-2">
-              <button className="w-10 h-10 rounded-full border border-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors text-primary">
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button className="w-10 h-10 rounded-full border border-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors text-primary">
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            </div>
+          <div className="flex items-center justify-end mt-6 gap-2">
+            <button onClick={() => scrollCarousel("left")} className="w-10 h-10 rounded-full border border-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors text-primary">
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button onClick={() => scrollCarousel("right")} className="w-10 h-10 rounded-full border border-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors text-primary">
+              <ChevronRight className="h-5 w-5" />
+            </button>
           </div>
         </div>
       </section>
