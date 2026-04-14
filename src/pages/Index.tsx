@@ -82,15 +82,14 @@ const Index = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative flex items-center overflow-hidden bg-hero-gradient pt-24 pb-16 md:pt-28 md:pb-20 lg:min-h-[90vh] lg:py-0">
+      <section className="relative overflow-hidden bg-hero-gradient pt-32 md:pt-36 lg:pt-40">
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
-            <div className="w-full lg:w-1/2">
-              <TextReveal
-                text="Expert Care For Pain Relief And Enhanced Function"
-                as="h1"
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-[1.2] mb-6 md:mb-8"
-              />
+          <div className="grid md:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
+            {/* Left Column */}
+            <div className="pb-20 md:pb-32">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-[1.2] mb-6 md:mb-8">
+                Expert Care For Pain Relief And Enhanced Function
+              </h1>
               <p className={`text-primary-foreground/80 text-base md:text-lg mb-8 md:mb-10 max-w-lg leading-relaxed transition-all duration-1000 delay-500 ${heroLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
                 At Unique Pain & Paralysis Centre, we specialize in providing personalized rehabilitation services to help you recover and thrive.
               </p>
@@ -116,8 +115,9 @@ const Index = () => {
                 </Link>
               </div>
             </div>
-            <div className={`w-full lg:w-1/2 transition-all duration-1000 delay-300 ${heroLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>
-              <HeroSlider images={heroImages} className="rounded-2xl shadow-2xl w-full h-auto max-h-[480px] object-cover mx-auto lg:ml-auto" />
+            {/* Right Column — Image */}
+            <div className={`transition-all duration-1000 delay-300 ${heroLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>
+              <HeroSlider images={heroImages} className="rounded-xl shadow-2xl w-full h-[400px] md:h-[500px] object-cover" />
             </div>
           </div>
         </div>
