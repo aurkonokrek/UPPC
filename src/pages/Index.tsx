@@ -122,7 +122,7 @@ const Index = () => {
                   Book Appointment
                 </Link>
                 <Link to="/services" className="px-6 sm:px-8 py-3 border-2 border-primary-foreground/40 text-primary-foreground font-semibold rounded-full hover:bg-primary-foreground/10 transition-all duration-300 text-sm">
-                  Learn More
+                  Explore Services
                 </Link>
               </div>
             </div>
@@ -418,15 +418,15 @@ const Index = () => {
       </section>
 
       {/* Well-being CTA */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 lg:px-8">
-          <AnimatedSection className="max-w-2xl">
+      <section className="bg-primary-dark py-24">
+        <div className="container mx-auto px-4 lg:px-8 text-center">
+          <AnimatedSection className="max-w-3xl mx-auto">
             <TextReveal
               text="We not only help you feel better. We ensure your well-being with UPPC"
               as="h2"
-              className="text-3xl md:text-4xl font-bold text-foreground mb-4 leading-tight"
+              className="text-3xl md:text-4xl font-bold text-primary-foreground mb-6 leading-tight"
             />
-            <Link to="/contact" className="inline-flex items-center px-8 py-3 bg-primary text-primary-foreground font-semibold rounded-full hover:bg-primary-dark transition-colors text-sm">
+            <Link to="/contact" className="inline-flex items-center px-8 py-3 bg-accent text-accent-foreground font-semibold rounded-full hover:opacity-90 transition-all duration-300 text-sm">
               Learn More
             </Link>
           </AnimatedSection>
