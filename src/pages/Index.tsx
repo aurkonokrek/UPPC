@@ -72,7 +72,17 @@ const heroImages = [heroImg, aboutImg, servicePhysio];
 const Index = () => {
   const [heroLoaded, setHeroLoaded] = useState(false);
   const parallaxOffset = useParallax(0.15);
+  const navigate = useNavigate();
+  const carouselRef = useRef<HTMLDivElement>(null);
 
+  const scrollCarousel = (direction: "left" | "right") => {
+    if (!carouselRef.current) return;
+    const scrollAmount = 280;
+    carouselRef.current.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
   useEffect(() => {
     const t = setTimeout(() => setHeroLoaded(true), 100);
     return () => clearTimeout(t);
