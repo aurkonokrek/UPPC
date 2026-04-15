@@ -29,8 +29,15 @@ const Footer = () => (
         <div>
           <h4 className="font-semibold text-foreground mb-4">Our Services</h4>
           <ul className="space-y-2.5">
-            {["Physiotherapy","Pain Management","Stroke Rehabilitation","Electro Therapy","Manual Therapy"].map(s => (
-              <li key={s}><Link to="/services" className="text-sm text-muted-foreground hover:text-primary transition-colors">{s}</Link></li>
+            {[
+              { name: "Physiotherapy", slug: "physiotherapy" },
+              { name: "Pain Management", slug: "pain-management" },
+              { name: "Stroke Rehabilitation", slug: "stroke-rehabilitation" },
+              { name: "Electro Therapy", slug: "electro-therapy" },
+              { name: "Manual Therapy", slug: "manual-therapy" },
+              { name: "Sports Injury Management", slug: "sports-injury" },
+            ].map(s => (
+              <li key={s.slug}><Link to={`/services/${s.slug}`} className="text-sm text-muted-foreground hover:text-primary transition-colors">{s.name}</Link></li>
             ))}
           </ul>
         </div>
