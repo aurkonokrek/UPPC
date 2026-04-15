@@ -93,7 +93,7 @@ const Index = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-hero-gradient pt-32 md:pt-36 lg:pt-40 pb-32 md:pb-40">
+      <section className="relative overflow-hidden bg-hero-gradient pt-16 md:pt-20 lg:pt-24 pb-32 md:pb-40">
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <div className="grid md:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
             {/* Left Column */}
