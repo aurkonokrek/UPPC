@@ -214,10 +214,6 @@ const Index = () => {
                 <Link to="/about" className="px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-full hover:bg-primary-dark transition-colors text-sm">
                   Learn More
                 </Link>
-                <div className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-medium text-foreground">+880123456789</span>
-                </div>
               </div>
             </AnimatedSection>
           </div>
