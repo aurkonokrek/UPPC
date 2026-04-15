@@ -201,12 +201,12 @@ const Index = () => {
                 At Unique Pain & Paralysis Centre, we are dedicated to providing personalized and rehabilitation services to address a variety of conditions and needs.
               </p>
               <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="bg-primary p-5 rounded-xl">
-                  <h4 className="font-bold text-primary-foreground mb-2">Our Mission</h4>
-                  <p className="text-xs text-primary-foreground/80 leading-relaxed">Providing exceptional rehabilitation care with compassion and expertise.</p>
+                <div className="bg-primary-light border border-primary/10 p-5 rounded-xl shadow-sm">
+                  <h4 className="font-bold text-primary mb-2">Our Mission</h4>
+                  <p className="text-xs text-muted-foreground leading-relaxed">Providing exceptional rehabilitation care with compassion and expertise.</p>
                 </div>
-                <div className="bg-accent p-5 rounded-xl">
-                  <h4 className="font-bold text-accent-foreground mb-2">Our Vision</h4>
+                <div className="bg-primary-light border border-primary/10 p-5 rounded-xl shadow-sm">
+                  <h4 className="font-bold text-primary mb-2">Our Vision</h4>
                   <p className="text-xs text-muted-foreground leading-relaxed">To be the leading rehabilitation center delivering innovative care solutions.</p>
                 </div>
               </div>
