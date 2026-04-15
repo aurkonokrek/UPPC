@@ -93,7 +93,7 @@ const Index = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-hero-gradient pt-32 md:pt-36 lg:pt-40 pb-32 md:pb-40">
+      <section className="relative overflow-hidden bg-hero-gradient pt-16 md:pt-20 lg:pt-24 pb-32 md:pb-40">
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <div className="grid md:grid-cols-2 gap-8 items-center max-w-7xl mx-auto">
             {/* Left Column */}
@@ -214,10 +214,6 @@ const Index = () => {
                 <Link to="/about" className="px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-full hover:bg-primary-dark transition-colors text-sm">
                   Learn More
                 </Link>
-                <div className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-medium text-foreground">+880123456789</span>
-                </div>
               </div>
             </AnimatedSection>
           </div>
