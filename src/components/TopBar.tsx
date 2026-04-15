@@ -11,7 +11,7 @@ const TopBar = () => (
       <p className="text-primary-foreground/80 hidden md:block">
         Sign up and GET 20% OFF for your first order.
       </p>
-      <div className="flex items-center gap-3">
+      <div className="hidden md:flex items-center gap-3">
         {[
           { icon: Facebook, label: "Facebook" },
           { icon: Twitter, label: "X" },
